@@ -1,0 +1,24 @@
+Adrian Faircloth
+3/20/22
+CSC380
+					Lab 7 Part II
+
+a) ?- size([1,2,3,4],N).    -> N = 4.
+   ?- sumlist([1,2,3,4],N). -> N = 10.
+   ?- reverse([1,2,3,4],N). -> N = [4,3,2,1]. 
+
+b) state(w,w,w,w). - Farmer, wolf, goat, and cabbage are all on the west bank.
+   state(e,w,e,w). - Farmer and goat move to the east bank, leaving wolf and cabbage on the west bank.
+   state(w,w,e,w). - Farmer leaves goat on the east bank and returns to the west bank.
+   state(e,e,e,w). - Farmer takes wolf to the west bank and leaves cabbage on the west bank.
+   state(w,e,w,w). - Farmer and goat move back to the west bank, leaving wolf on the east bank.
+   state(e,e,w,e). - Farmer takes cabbage to the east bank, leaving goat on the west bank.
+   state(w,e,w,e). - Farmer moves back to the west bank, leaving wolf and cabbage on the west bank.
+   state(e,e,e,e). - Farmer takes goat to the east bank, completing the moving of all to the east bank.
+
+c) Backtracking is the process of returning to a previous state when an error is made. In cabbage.pl, backtracking
+is used when an attempted move results in a bad pairing.
+
+d) The Jealous Husbands Problem consists of couples wanting to cross a river, with a boat that can carry up to 3 people at one time.
+The husbands in each couple are jealous, and will not allow a woman to be with another man unless her husband is also present. This means
+that women cannot outnumber the men on either side of the river, as that would mean some women are without their husbands.

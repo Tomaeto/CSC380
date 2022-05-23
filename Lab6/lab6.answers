@@ -1,0 +1,37 @@
+Adrian Faircloth
+2-22-22
+CSC280
+				Lab 6 Answers
+Part I:
+	Prolog is short for Programming Logic, and consists of facts and rules.
+	Three of the facts in simple.pl are "sunny.", "father(john, mary).", and "father(john, peter)"
+
+Part II:
+	Format is query -> answer
+
+	parent(susan, mary). -> yes
+		Susan is the mother of Mary, so Susan is the parent of Mary based on Rule 2 of family.pl
+
+	parent(ray, peter). -> no
+		Ray is neither the father nor the mother of Peter, so Ray is not the parent of Peter based in Rules 1 and 2
+
+	yeye(X, peter). -> X = david
+		David is the father of John who is the father of Peter, so X must be Peter for the statement to be true based on Rule 6
+
+	gunggung(X, Y). -> X = jack	Y = peter
+		Jack is the father of Susan who is the mother of Peter, so X and Y must be Jack and Peter for the statement to be true based on Rule 8
+
+
+Part III:
+	is_in_room(Class, wsc100). -> Class = csc480
+		csc480 is the only Class given in room wsc100, so Class must be csc480 for the statement to be true.
+
+	is_in_class(toby, Class). -> Class = csc380 ; Class = csc480
+		Toby is in both csc380 and csc480, so Class can be either csc380 or csc480 for the statement to be true.
+
+	is_hot(Person) -> Person = toby
+		The only room with a temp > 80 is wsc238, which only csc380 is taught in, and only toby is defined as in csc380,
+		so Person must be toby for the statement to be true.
+
+
+	Using the modified version of is_hot that uses wildcard characters, the rule 

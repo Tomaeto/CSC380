@@ -1,0 +1,75 @@
+hello|hi|what's up|hey
+Hi! what can I help you with today
+Hello, how can I help you? 
+Hey, what would you like to talk about today?
+Good to hear from you. How are you?
+#
+always
+Can you think of a specific example?
+#
+because
+Is that the real reason? 
+#
+sorry
+Please, don't apologize. 
+#
+maybe
+You don't seem very certain.
+#
+i think 
+Do you really think so? 
+#
+you 
+We were discussing you, not me.
+#
+yes
+Why do you think so? 
+You seem quite positive.
+#
+no
+Why not? 
+Are you sure?
+#
+i am|i'm
+I am sorry to hear you are *.
+How long have you been *?
+Do you believe it's normal to be *?
+Do you enjoy being *?
+#
+i feel 
+Tell me more about such feelings. 
+Do you often feel *?
+DO you enjoy feeling *?
+Why do you feel that way? 
+#
+family|mother|mom|dad|father|sister|brother|husband|wife
+Tell me more about your family. 
+How do you get along with your family? 
+Is your family important to you? 
+#
+dream|nightmare
+What does that dream suggest to you? 
+Do you dream often? 
+What persons appear in your dreams? 
+Are you disturbed by your dreams? 
+#
+i hate
+Hate is bad for your heart.
+Why do you hate *?
+#
+bye
+Bye! (You won't see this)
+#
+food|diet|hungry
+You should eat a balanced diet.
+What's your typical diet?
+Do you stick to a meal plan each day?
+Eating well and exercising will greatly help your mental health.
+#
+__NO_MATCH__
+What does that suggest to you? 
+I see. 
+I'm not sure I understand you fully. 
+Can you elaborate? 
+That is quite interesting! 
+#

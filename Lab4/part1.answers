@@ -1,0 +1,19 @@
+Adrian Faircloth
+1/20/22
+CSC380
+
+Lab 4 Part 1
+
+a) The board is implemented as a vector of strings called Grid.
+
+b) protected is used so a subclass or derived class designed for solving more complicated puzzles can access the protected functions.
+
+c) Base cases:
+	Grid.size() = 0
+	r = 9
+
+d) The function uses recursion to test every digit in the first empty cell found and see if the grid can be solved with that digit, returning
+true or false accordingly.
+
+e) The neural network represents the grid as a graph and sends messages between nodes to figure out which numbers are valid for each cell in the grid,
+returning a probability distribution for the most likely correct numbers for each cell.

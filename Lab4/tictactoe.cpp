@@ -1,0 +1,290 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+//Adrian Faircloth
+//01-24-22
+//CSC380
+
+enum Player {
+	Human = -1,
+	Blank = 0,
+	Computer = 1
+};
+
+
+void printBoard(Player board[]);
+void playGame(Player board[]);
+bool checkWin(Player board[]);
+bool checkBlanks(Player board[]);
+int heuristicEval(Player board[]);
+
+int main() {
+	char play = 'Y';
+
+	while(play == 'Y') {
+		Player board[9] = {Blank,Blank,Blank,Blank,Blank,Blank,Blank,Blank,Blank};
+		printBoard(board);
+		playGame(board);
+		cout << "Do you want to play again? (Y/N) ";
+		cin >> play;
+		cout << endl;
+	}
+	return 0;
+}
+
+void printBoard(Player board[]) {
+	
+	for(int i = 0; i < 9; i++) {
+		if((i == 2) || (i == 5) || (i == 8)) {
+			if(board[i] == -1)
+				cout << " X";
+			else if (board[i] == 1)
+				cout << " O";
+			else
+				cout << "  ";
+		} else {
+			if(board[i] == -1)
+                                cout << "  X |";
+                        else if (board[i] == 1)
+                                cout << "  O |";
+                        else
+                                cout << "    |";
+		}
+		if(((i+1)%3 == 0) && (i != 8)) {
+			cout << endl << "----|----|----" << endl;
+		}
+		if(i == 8)
+			cout << endl;
+	}
+
+}
+
+//Function for playing tic-tac-toe against AI
+void playGame(Player board[]) {
+
+	//setting variables for values representing the human and computer players
+	//	and player input for board space
+	Player human = Human;
+	Player comp = Computer;
+	int input;
+
+	//Loop for playing game
+	//Gets player input for a space, marks space, checks game end conditions,
+	//	runs heuristic for AI, marks AI-chosen space, checks game end conditions,
+	//	and loops
+	while(true)
+	{
+		//Getting user input for a board space (1-9)
+		cout << "Choose a space (1 - 9): ";
+		cin >> input;
+
+		//Decrementing input to match board array
+		input--;
+
+		//If input is out of range or space is taken, re-prompt player until valid space is entered
+		while (board[input] != Blank || input > 8 || input < 0 )
+		{
+			cout << "Invalid input, try again" << endl;
+			cout << "Choose a space (1 - 9): ";
+			cin >> input;
+			input--;
+		}
+
+		//Set board index to human value 
+		board[input] = human;
+	
+		//Printing updated board
+		printBoard(board);
+		cout << endl;
+
+		//If a win is found now, the player has won, so print win message and break loop
+		if ( checkWin(board) )
+		{
+			
+			cout << "You won!! (That shouldn't happen)" << endl;
+			break;
+		}
+
+		//If no board spaces are blank, game is a draw, so print draw message and break loop
+		else if ( !checkBlanks(board) )
+		{
+			cout << "The game has ended in a draw!" << endl;
+			break;
+		}
+
+		//If game is still active, run heuristic function and make computer's move
+		else
+		{
+			//Getting space index from heuristic evaluation function and
+			//	playing that space
+			input = heuristicEval(board);
+			board[input] = comp;
+			
+			//Printing updated board
+			printBoard(board);
+			cout << endl;
+
+			//If a win is found now, computer has won, so print loss message and break loop
+			if ( checkWin(board) )
+			{
+				cout << "You lost! (But that's okay)" << endl;
+				break;
+			}
+
+			//Game can only tie on player's move, so no need to check for empty spaces
+		}
+	}	
+}
+
+//Function for checking if a player has won the game
+bool checkWin(Player board[]) {
+
+	//2D array of all possible rows of three
+	int allRows[8][3] = {
+		{0, 1, 2},
+		{3, 4 ,5},
+		{6, 7, 8},
+		{0, 3, 6},
+		{1, 4, 7},
+		{2, 5, 8},
+		{0, 4, 8},
+		{2, 4, 6}
+	};
+
+	//For each possible row of three, check if the board spaces are
+	//	all the same non-blank value (Human or Computer)
+	//If they are all the same non-blank value, a player has won, so return true
+	for (int i = 0; i < 8; i++)
+	{
+		if (board[allRows[i][0]] != Blank
+			&& board[allRows[i][1]] == board[allRows[i][0]]
+			&& board[allRows[i][1]] == board[allRows[i][2]] )
+			return true;
+	}
+	
+	//Return false if no winning combinations are found
+	return false;
+}
+
+//Function for checking for any blank spaces on the board
+bool checkBlanks(Player board[]) {
+
+	//Loop through all board spaces, and if any are blank, return true
+	for (int i = 0; i < 9; i++)
+	{
+		if (board[i] == Blank)
+			return true;
+	}
+
+	//Return false if no blank spaces are found
+	return false;
+}
+
+int heuristicEval(Player board[]) {
+
+	//2D array of all possible rows of three
+	int allRows[8][3] = {
+		{0, 1, 2},
+		{3, 4, 5},
+		{6, 7, 8},
+		{0, 3, 6},
+		{1, 4, 7},
+		{2, 5, 8},
+		{0, 4, 8},
+		{2, 4, 6}	
+	};
+
+	//Array of indices of corner spaces
+	int corners[4] = {0, 2, 6, 8};
+
+	//If player has two in a row, play on remaining space	
+	for (int i = 0; i < 8; i++)
+	{
+		//Checking all possible rows of 2 using possible rows of 3
+
+		//If human player has two spaces in a row and the last is blank,
+		//	return index of the blank space
+		if (board[allRows[i][0]] == Human 
+		 && board[allRows[i][1]] == Human 
+		 && board[allRows[i][2]] == Blank)
+			return allRows[i][2];
+
+		else if (board[allRows[i][1]] == Human
+		      && board[allRows[i][2]] == Human
+	 	      && board[allRows[i][0]] == Blank)
+			return allRows[i][0];
+
+		else if (board[allRows[i][0]] == Human
+		      && board[allRows[i][2]] == Human
+		      && board[allRows[i][1]] == Blank)
+			return allRows[i][1];
+	}
+
+	//If no index was returned, check next heuristic
+	//If there is a move that results in two in a row, play that move
+	for (int i = 0; i < 8; i++)
+	{
+
+		//Using possible rows of 3 to check for potential rows of 2
+
+		//For each space in row, if it is blank and either of the other
+		//	2 spaces are the computer's, return index of the blank space
+		if (board[allRows[i][0]] == Blank &&
+			(board[allRows[i][1]] == Computer ||
+			 board[allRows[i][2]] == Computer))
+			return allRows[i][0];
+
+		else if (board[allRows[i][1]] == Blank &&
+			     (board[allRows[i][0]] == Computer ||
+			      board[allRows[i][2]] == Computer))
+			return allRows[i][1];
+
+		else if (board[allRows[i][2]] == Blank &&
+			     (board[allRows[i][0]] == Computer ||
+			      board[allRows[i][1]] == Computer))
+			return allRows[i][2];
+	}	
+
+	//If no index was returned, check next heuristic
+	//If center space is free, play on that space
+	if (board[4] == Blank)
+		return 4;
+
+	//If no index was returned, check next heuristic
+	//If human player has played a corner space, play the opposite corner
+	else if (board[0] == Human && board[8] == Blank)
+		return 8;
+	else if (board[8] == Human && board[0] == Blank)
+		return 0;
+	else if (board[2] == Human && board[6] == Blank)
+		return 6;
+	else if (board[6] == Human && board[2] == Blank)
+		return 2;
+
+	//If no index was returned, check next heuristic
+	//If a corner space is empty, play there
+	for (int i = 0; i < 3; i++)
+	{
+		//Checking each corner space using array of corner indices
+		if (board[corners[i]] == Blank)
+			return corners[i];
+	}
+
+	//If no index was returned, check final heuristic
+	//Play an empty square
+	//Center and corners must be taken to reach this point, so only open spaces are middle
+	//	of outer edges (spaces 1, 3, 5, 7)
+	if (board[1] == Blank)
+		return 1;
+	else if (board[3] == Blank)
+		return 3;
+	else if (board[5] == Blank)
+		return 5;
+	else if (board[7] == Blank)
+		return 7;
+
+	//If no index was returned somehow, return -1 as error value
+	else
+		return -1;
+}

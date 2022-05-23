@@ -1,0 +1,37 @@
+Adrian Faircloth
+02/05/22
+CSC380
+						Game of NIM Algorithm Outline
+
+Starting Algorithm and Player's Move:
+First, get user input for initial pile sizes, reprompting if they are outside the range 1 - 3.
+Next, get user input for starting player (Human or Computer).
+Then, open unsafe file and read in line-by-line to build list of all unsafe moves.
+If user chose for the computer to start, skip human player's first turn.
+Get user input for pile and amount to take, checking if they are valid.
+Remove chosen amount from chosen pile and display updated piles.
+
+AI Algorithm:
+First, check if there are possible unsafe moves by building list of unsafe states reachable
+in one move.
+If there are possible unsafe states, add current state and all possible previous states to list of
+unsafe states.
+Sort list and overwrite unsafe file with updated list of unsafe states.
+Then, test possible moves until a safe move is found.
+If no safe move is possible, simply find the valid move that takes the most tokens from a pile.
+Execute computer's move and print updated piles.
+
+After each player's move, check if all piles are empty.
+If so, print message indicating winner and exit.
+
+Notes on Efficiency:
+I feel that checking for any possible unsafe moves as well as moves within that subset may be inefficient,
+but creating a separate list of unsafe moves possible from the current state results in quicker checks with
+that design.
+Overwriting the unsafe file with a sorted, updated list of unsafe states results in quicker move computations for
+the AI, as only one file read/write is required per turn of the game.
+The runtime of the AI's move computation increases as the unsafe file size increases, but this is negligible as the
+file size increases in very small amounts per turn and the program only reads/writes once per computer's turn at most.
+
+I did not create a very large unsafe file as I am very tired as of finishing this (Saturday at midnight), but I did not
+encounter any issues in testing either large starting values or edge cases such as having no safe moves.

@@ -1,0 +1,26 @@
+Adrian Faircloth
+03-15-22
+CSC380
+
+					Project 2 Algorithm
+First, the algorithm generates a 20 x 20 grid of 2-element lists, each of which stores info on the cell's
+population and age statuses. Then, the algorithm checks for any command-line options, using exception handling
+to efficiently check validity of options and performing associated tasks.
+	If '--help' is given, the program prints a help menu and exits.
+	If '-g' is given, the program sets a flag to disable generational death.
+	If '-f <filename>' is given, the algorithm opens a file and checks its validity. The algorithm reads 
+the file content into a string, closes file, and removes any whitespace and newlines for efficiency in file 
+reading and string parsing. The algorithm then sets the value of each cell in the grid based on the contents of the file.
+If a character is '0' the cell is empty, if it is 'X' the cell is populated, and any other character throws an error and exits program.
+	If '-f' is not given, the grid is randomized, with each cell given a 50% chance to become populated.
+
+	For each generation, the algorithm checks the following rules for each cell:
+		A cell with neighbors < 2, neighbors > 3, or age > 10 dies.
+		A cell with neighbors = 2 is stable and keeps current state.
+		A cell with neighbors = 3 will be populated.
+
+	To check neighbors, the algorithm returns a list of the population states of a cell's neighbors and counts living neighbors.
+	The algorithm uses a copy of the grid to make changes and copy them back into the main grid to cause changes simultaneously.
+	After checking every cell and making changes, the algorithm prints new grid status and repeats until given number of generations is reached.
+
+	The algorithm uses ASCII color codes to print text with varying colors.

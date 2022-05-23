@@ -1,0 +1,20 @@
+Adrian Faircloth
+4-6-22
+CSC380
+						Project 3 Algorithm
+
+	This program uses a Dialogue class to handle storage of key-response sets, getting/parsing user input, finding keywords,
+and building responses. The main function coordinates the class' functions to repeat the input-response cycle indefinitely until
+the user enters the keyword 'bye'.
+	First, the class builds a dictionary of keyword-response list pairs from the info in the dialogue.txt file. Then, the
+algorithm gets user input, removes any non-alphanumeric and non-space characters, and then removes any stopwords. The class stores
+a copy of the input string containing stopwords in case the response requires part of the input. Next, the algorithm finds the first
+instance of a keyword or keyphrase within the input string, returning "__NO_MATCH__" if no key is found. If the key found is 'bye',
+the program breaks the loop and terminates at this point. The class then uses the keyword to randomly choose a response from the
+response list paired to the key in the dictionary, adding the part of the input after the keyword if the character '*' is in the response,
+denoting the need for a deeper response. This input-response loop repeats until the 'bye' keyword is found.
+
+	The Dialogue class was designed to efficiently process the input string and create the response, while the main function
+focused on running the algorithm using a Dialogue object. The Dialogue object stores the key-response pairs in a dictionary
+for ease of comparing the keywords and pulling the response lists, but the need to store multiple identical sets of responses for
+some keys leads to inefficiency in memory management due to the redundancies.
